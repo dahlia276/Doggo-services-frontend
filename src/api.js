@@ -15,10 +15,27 @@ export const loggedin = () => {
     return axios.get(`${baseUrl}/loggedin`, {withCredentials: true});
   }
 
+  export const logout = () => {
+    return axios.post(`${baseUrl}/logout`, null, {withCredentials: true});
+  }
+
   export const addowner = (OwnerProfile) => {
     return axios.post(`${baseUrl}/sitter-request`, OwnerProfile)
+}
+
+export const addsitter = (SitterProfile) => {
+    return axios.post(`${baseUrl}/create-profile`, SitterProfile)
 }
 
 export const uploadFile = (uploadData) => {
     return axios.post(`${baseUrl}/upload`, uploadData)
 }
+
+export const getAllSitters = () => {
+    return axios.get(`${baseUrl}/sitters`)
+}
+
+export const requestBookingEmail = (email, requestText) => {
+    return axios.post(`${baseUrl}/request-booking`, {email, requestText})
+}
+

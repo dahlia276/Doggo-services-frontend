@@ -1,5 +1,8 @@
 import React from "react"
 import {addowner, uploadFile} from "../api"
+import {RadioGroup, Radio} from 'react-radio-group'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class OwnerProfile extends React.Component {
     state = {
@@ -49,26 +52,37 @@ class OwnerProfile extends React.Component {
         })
       }
 
-      handleSize = (event) => {
-        const {name} = event.target;
-         this.setState({
-             [name]: !this.state[name]
-         })
-       }
-
-       handleAge = (event) => {
-        const {name} = event.target;
-         this.setState({
-             [name]: !this.state[name]
-         })
-       }
-
-       handleOther = (event) => {
-        const {name} = event.target
+      handleSize = (size) => {
         this.setState({
-            [name]: !this.state[name]
+            size: size
+        })
+      }
+
+      handleAge = (dogAge) => {
+       this.setState({
+           dogAge: dogAge
+       })
+      }
+
+      handleOther = (otherDogs) => {
+       this.setState({
+        otherDogs: otherDogs
+       })
+      }
+
+      handleChangePickup = (date) => {
+        this.setState({
+            pickUp: date
         })
        }
+
+
+      handleChangeDropOff = (date) => {
+        this.setState({
+            dropOff: date
+        })
+       }
+ 
 
       handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -87,14 +101,7 @@ class OwnerProfile extends React.Component {
             doggyDaycare,
             dogWalking,
             dogGrooming,
-            small,
-            medium,
-            large,
-            puppy,
-            adult,
-            senior,
-            yes,
-            no} = this.state;
+            } = this.state;
     /*
         const uploadData = new FormData();
         uploadData.append("file", imageUrl);
@@ -124,44 +131,12 @@ class OwnerProfile extends React.Component {
             }
             console.log(services)
 
-            let size = [];
-            if(small){
-                size.push("small")
-            }
-            if(medium){
-                size.push("medium")
-            }
-            if(large){
-                size.push("large")
-            }
-
-            let age = [];
-            if(puppy){
-                age.push("puppy")
-            }
-            if(adult){
-                age.push("adult")
-            }
-            if(senior){
-                age.push("senior")
-            }
-
-            let other = [];
-            if(yes){
-                other.push("yes")
-            }
-            if(no){
-                other.push("no")
-            }
-
-
-
         const newProfile = {
             services,
             address,
             pickUp,
             dropOff,
-            size,
+            dogSize,
             dogAge,
             otherDogs,
             specialComments
@@ -193,67 +168,64 @@ class OwnerProfile extends React.Component {
                 dogWalking,
                 dogGrooming,
                 firstPage,
-                small,
-                medium,
-                large,
-                puppy,
-                adult,
-                senior,
-                yes,
-                no } = this.state;
+                } = this.state;
 
             return(
                 firstPage ? (
                 <div>
-                    <h1>Find the perfect match!</h1>
+                <img className="img-o" src="/images/matt-nelson-aI3EBLvcyu4-unsplash.jpg"/>
+                    <h1 className="o-t-1">Find the perfect match!</h1>
                     <div>
-                    <h2>Choose your service:</h2>
-                    <button onClick={this.handleServices} name="dogBoarding" >{dogBoarding ? 'Dog boarding ✅' : 'Dog boarding'}</button>
-                    <button onClick={this.handleServices} name="houseSitting">  {houseSitting ? 'House sitting ✅' : 'House sitting'}</button>
-                    <button onClick={this.handleServices} name="dropInVisits"> {dropInVisits ? 'Drop-in visits ✅' : 'Drop-in visits'}</button>
-                    <button onClick={this.handleServices} name="doggyDaycare"> {doggyDaycare ? 'Doggy day care ✅' : 'Doggy day care'}</button>
-                    <button onClick={this.handleServices} name="dogWalking"> {dogWalking ? 'Dog walking ✅' : 'Dog walking'}</button>
-                    <button onClick={this.handleServices} name="dogGrooming"> {dogGrooming ? 'Dog grooming ✅' : 'Dog grooming'}</button>
+                    <h2 className="sitter-t-1">Choose your service:</h2>
+                    <button className="bttn-1" onClick={this.handleServices} name="dogBoarding" >{dogBoarding ? 'Dog boarding ✅' : 'Dog boarding'}</button>
+                    <button className="bttn-2" onClick={this.handleServices} name="houseSitting">  {houseSitting ? 'House sitting ✅' : 'House sitting'}</button>
+                    <button className="bttn-3" onClick={this.handleServices} name="dropInVisits"> {dropInVisits ? 'Drop-in visits ✅' : 'Drop-in visits'}</button>
+                    <button className="bttn-4" onClick={this.handleServices} name="doggyDaycare"> {doggyDaycare ? 'Doggy day care ✅' : 'Doggy day care'}</button>
+                    <button className="bttn-5" onClick={this.handleServices} name="dogWalking"> {dogWalking ? 'Dog walking ✅' : 'Dog walking'}</button>
+                    <button className="bttn-6" onClick={this.handleServices} name="dogGrooming"> {dogGrooming ? 'Dog grooming ✅' : 'Dog grooming'}</button>
                     </div>
-                   <div>
-                   <form  >
-                       <label>Add your area</label>
-                       <input
+                   <button className="btn-c" onClick={this.nextPage}>Next</button>
+                </div>
+                  ) :
+                  (
+                      <div>
+                        <img src="/images/matt-nelson-aI3EBLvcyu4-unsplash.jpg"/>
+                          <h1 className="o-t-2">Find the perfect match!</h1>
+                          <form onSubmit={this.handleFormSubmit}  encType="multipart/form-data">
+                       <label className="owner-t-3">Add your area</label>
+                       <input className="owner-i-1"
                        type="text"
                        name="address"
                        onChange={this.handleChange}
                        value={address}
                        />
-                        <p>Add your dates</p>
-                       <label>Pick up</label>
-                       <input type="date" name="pick-up" onChange={this.handleChange} value={pickUp}/>
-                       <label>Drop off</label>
-                       <input type="date" name="drop-off" onChange={this.handleChange} value={dropOff} />
-                   </form>
-                   </div>
-                   <button onClick={this.nextPage}>Next</button>
-                </div>
-                  ) :
-                  (
-                      <div>
-                          <h1>Find the perfect match!</h1>
-                          <form onSubmit={this.handleFormSubmit}  encType="multipart/form-data">
-                          <p>What's your dog's size?</p>
-                          <button onClick={this.handleSize} name="small" >{small ? 'Small ✅' : 'Small'}</button>
-                          <button onClick={this.handleSize} name="medium">  {medium ? 'Medium ✅' : 'Medium'}</button>
-                          <button onClick={this.handleSize} name="large"> {large ? 'Large ✅' : 'Large'}</button>
-                          <p>How old is your dog?</p>
-                          <button onClick={this.handleAge} name="puppy" >{puppy ? 'Puppy ✅' : 'Puppy'}</button>
-                          <button onClick={this.handleAge} name="adult">  {adult ? 'Adult ✅' : 'Adult'}</button>
-                          <button onClick={this.handleAge} name="senior"> {senior ? 'Senior ✅' : 'Senior'}</button>
-                          <p>Does your dog get along with other dogs?</p>
-                          <button onClick={this.handleOther} name="yes">  {yes ? 'Yes ✅' : 'Yes'}</button>
-                          <button onClick={this.handleOther} name="no"> {no ? 'No ✅' : 'No'}</button>
-                          <label> Special comments:</label>
-                          <input type="text" name="specialComments" onChange={this.handleChange} value={specialComments}/>
-                          <button>Submit</button>
+                        <p className="owner-t-4">Add your dates</p>
+                       <label className="pickup">Pick up</label>
+                       <DatePicker className="pickup-i" onChange={this.handleChangePickup} selected={pickUp} />
+                       <label className="dropoff">Drop off</label>
+                       <DatePicker className="dropoff-i" onChange={this.handleChangeDropOff} selected={dropOff} />
+                          <p className="owner-t-5">What's your dog's size?</p>
+                          <RadioGroup className="owner-o-1" name="size" selectedValue={size} onChange={this.handleSize}>
+                            <Radio value="small" />Small
+                            <Radio value="medium" />Medium
+                            <Radio value="large" />Large
+                        </RadioGroup>
+                          <p className="owner-t-6">How old is your dog?</p>
+                          <RadioGroup className="owner-o-2" name="dogAge" selectedValue={dogAge} onChange={this.handleAge}>
+                            <Radio value="puppy" />Puppy
+                            <Radio value="adult" />Adult
+                            <Radio value="senior" />Senior
+                        </RadioGroup>
+                          <p className="owner-t-7">Does your dog get along with other dogs?</p>
+                          <RadioGroup className="owner-o-3" name="otherdogs" selectedValue={otherDogs} onChange={this.handleOther}>
+                            <Radio value="yes" />Yes
+                            <Radio value="no" />No
+                        </RadioGroup>
+                          <label className="owner-t-8"> Special comments:</label>
+                          <input className="owner-o-4" type="text" name="specialComments" onChange={this.handleChange} value={specialComments}/>
+                          <button className="btn-o1">Submit</button>
                           </form>
-                          <button onClick={this.nextPage}>Previous</button>
+                          <button className="btn-o2" onClick={this.nextPage}>Previous</button>
                       </div>
                   )
             )

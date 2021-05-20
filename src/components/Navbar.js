@@ -9,58 +9,82 @@ function Navbar({loggedInUser, setCurrentUser}) {
         setCurrentUser(null)
     }
 
-  return loggedInUser ? (
-      <>
-      <p>
-          Welcome {loggedInUser.username}
-      </p>
-    <ul>
-    <li>
-        <NavLink  to="/">
-         <button onClick={logoutUser} >Log out</button>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink activeStyle={{ color: "red" }} exact to="/projects">
-         Search sitters
-        </NavLink>
-      </li>
-      <li>
-        <NavLink activeStyle={{ color: "red" }} exact to="/projects/add">
-          Become a sitter
-        </NavLink>
-      </li>
-      <li>
-        <NavLink activeStyle={{ color: "red" }} exact to="/services">
-          Our services
-        </NavLink>
-      </li>
-    </ul>
-    </>
-  ) : (
-    <ul>
-    <li>
-      <NavLink activeStyle={{ color: "red" }} exact to="/projects">
-        Projects
-      </NavLink>
-    </li>
-    <li>
-        <NavLink activeStyle={{ color: "red" }} exact to="/signup">
-          Signup
-        </NavLink>
-      </li>
-      <li>
-        <NavLink activeStyle={{ color: "red" }} exact to="/login">
-          Login
-        </NavLink>
-      </li>
-      <li>
-        <NavLink activeStyle={{ color: "red" }} exact to="/login-google">
-          Login with Google
-        </NavLink>
-      </li>
-  </ul>
-  
-  )
+    return loggedInUser ? (
+      <nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/home">
+          <p className="paws">PAWS</p>
+        </a>
+        <div
+          class="navbar-burger"
+          data-target="navbarExampleTransparentExample"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/sitter-request">
+            Search sitters
+          </a>
+          <a class="navbar-item" href="/become/sitter">
+           Become a sitter
+          </a>
+          <a class="navbar-item" href="/services">
+            Our services
+          </a>
+          <a class="navbar-item" href="/available-sitters">
+           Available sitters
+          </a>
+          </div>
+        </div>
+    </nav>
+    ) : (
+      <nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+        <p className="paws">PAWS</p>
+        </a>
+        <div
+          class="navbar-burger"
+          data-target="navbarExampleTransparentExample"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/sitter-request">
+            Search sitters
+          </a>
+          <a class="navbar-item" href="/become/sitter">
+           Become a sitter
+          </a>
+          <a class="navbar-item" href="/services">
+            Our services
+          </a>
+          <a class="navbar-item" href="/available-sitters">
+           Available sitters
+          </a>
+          </div>
+        </div>
+        <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="/signup">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href="/login">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+    </nav> 
+    )
 }
 export default Navbar;

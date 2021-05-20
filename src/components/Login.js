@@ -25,16 +25,19 @@ class Login extends React.Component {
         const {username, password} = this.state
         return(
             <>
+            <img className="img-l" src="/images/bharathi-kannan-rfL-thiRzDs-unsplash.jpg"/>
             <form onSubmit={this.handleFormSubmit}>
-              <label>Username:</label>
-              <input type="text" name="username" value={username} onChange={this.handleChange} />
+            <div className="division-1">
+              <label className="login-t">Username:</label>
+              <input className="login-i" type="text" name="username" value={username} onChange={this.handleChange} />
 
-              <label>Password:</label>
-              <input type="password" name="password" value={password} onChange={this.handleChange} />
+              <label className="login-t-2">Password:</label>
+              <input className="login-i-2" type="password" name="password" value={password} onChange={this.handleChange} />
 
-              <button>Login</button>
+              <button className="login-btn">Login</button>
+              </div>
             </form>
-            <p>
+            <p className="login-d">
               Don't have an account?
               <NavLink to="/signup"> Signup</NavLink>
             </p>

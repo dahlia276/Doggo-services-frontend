@@ -1,7 +1,8 @@
 import React from "react"
-import {addowner, uploadFile} from "../api"
+import {addsitter, uploadFile} from "../api"
+import {RadioGroup, Radio} from 'react-radio-group'
 
-class OwnerProfile extends React.Component {
+class SitterProfile extends React.Component {
     state = {
         dogBoarding: false,
         dogBoarding: false,
@@ -16,16 +17,17 @@ class OwnerProfile extends React.Component {
         puppy: false,
         adult: false,
         senior: false,
-        yes: false,
-        no: false,
-        address: "",
-        pickUp: "",
-        dropOff: "",
+        space: "",
         dogSize: [],
-        dogAge: [],
-        otherDogs: "",
+        dogAge: "",
+        pottyTrained: false,
         imageUrl: "",
-        specialComments: "",
+        space: "",
+        about:"",
+        area: "",
+        rate:0,
+        name:"",
+        email: "",
         firstPage: true
     }
 
@@ -49,59 +51,50 @@ class OwnerProfile extends React.Component {
         })
       }
 
-      handleSize = (event) => {
-        const {name} = event.target;
+      handleSize = (size) => {
          this.setState({
-             [name]: !this.state[name]
+             size: size
          })
        }
 
-       handleAge = (event) => {
-        const {name} = event.target;
-         this.setState({
-             [name]: !this.state[name]
-         })
-       }
-
-       handleOther = (event) => {
-        const {name} = event.target
+       handleAge = (dogAge) => {
         this.setState({
-            [name]: !this.state[name]
+            dogAge: dogAge
+        })
+       }
+
+       handlePotty = (pottyTrained) => {
+        this.setState({
+            pottyTrained: pottyTrained
         })
        }
 
       handleFormSubmit = async (event) => {
         event.preventDefault();
         const {
-            address,
-            pickUp,
-            dropOff,
             dogSize,
+            email,
             dogAge,
-            otherDogs,
-            imageUrl,
-            specialComments,              
+            imageUrl,              
             dogBoarding,
             houseSitting,
             dropInVisits,
             doggyDaycare,
             dogWalking,
             dogGrooming,
-            small,
-            medium,
-            large,
-            puppy,
-            adult,
-            senior,
-            yes,
-            no} = this.state;
-    /*
+            rate,
+            space,
+            about,
+            area,
+            size,
+            name,
+            pottyTrained} = this.state;
+    
         const uploadData = new FormData();
         uploadData.append("file", imageUrl);
-        //1. Upload the image to our api
         const response = await uploadFile(uploadData);
 
-        */
+    
         //2. Create the project on our api
             let services = [];
             if(dogBoarding) {
@@ -124,68 +117,35 @@ class OwnerProfile extends React.Component {
             }
             console.log(services)
 
-            let size = [];
-            if(small){
-                size.push("small")
-            }
-            if(medium){
-                size.push("medium")
-            }
-            if(large){
-                size.push("large")
-            }
-
-            let age = [];
-            if(puppy){
-                age.push("puppy")
-            }
-            if(adult){
-                age.push("adult")
-            }
-            if(senior){
-                age.push("senior")
-            }
-
-            let other = [];
-            if(yes){
-                other.push("yes")
-            }
-            if(no){
-                other.push("no")
-            }
-
-
-
         const newProfile = {
-            services,
-            address,
-            pickUp,
-            dropOff,
-            size,
             dogAge,
-            otherDogs,
-            specialComments
+            pottyTrained,
+            rate,
+            services,
+            size,
+            imageUrl: response.data.fileUrl,
+            space,
+            about,
+            area,
+            email,
+            name
         };
-        await addowner(newProfile);
+        await addsitter(newProfile);
         this.props.history.push("/sitter-request");
+        
+        
+  
       };
-
       nextPage = () => {
-          this.setState({
-              firstPage: !this.state.firstPage
-          })
-      }
-
+        this.setState({
+            firstPage: !this.state.firstPage
+        })
+    }
         render() {
             const {service,
-                address,
-                pickUp,
-                dropOff,
                 size,
                 dogAge,
-                otherDogs,
                 imageUrl,
-                specialComments,
                 dogBoarding,
                 houseSitting,
                 dropInVisits,
@@ -193,72 +153,109 @@ class OwnerProfile extends React.Component {
                 dogWalking,
                 dogGrooming,
                 firstPage,
-                small,
-                medium,
-                large,
-                puppy,
-                adult,
-                senior,
-                yes,
-                no } = this.state;
+                about,
+                area,
+                space,
+                rate,
+                email,
+                pottyTrained,
+                name} = this.state;
 
-            return(
-                firstPage ? (
+            return(   firstPage ? (
                 <div>
-                    <h1>Find the perfect match!</h1>
+                    <img className="img-2" src="/images/chewy-EV9_vVMZTcg-unsplash.jpg"/>
+                    <h1 className="sitter-h">Earn money on your </h1>
+                    <h1 className="sitter-h-2">free time!</h1>
+                    <h2 className="sitter-h-3">Create your account</h2>
+                    <h2 className="sitter-h-4">TODAY</h2>
                     <div>
-                    <h2>Choose your service:</h2>
-                    <button onClick={this.handleServices} name="dogBoarding" >{dogBoarding ? 'Dog boarding ✅' : 'Dog boarding'}</button>
-                    <button onClick={this.handleServices} name="houseSitting">  {houseSitting ? 'House sitting ✅' : 'House sitting'}</button>
-                    <button onClick={this.handleServices} name="dropInVisits"> {dropInVisits ? 'Drop-in visits ✅' : 'Drop-in visits'}</button>
-                    <button onClick={this.handleServices} name="doggyDaycare"> {doggyDaycare ? 'Doggy day care ✅' : 'Doggy day care'}</button>
-                    <button onClick={this.handleServices} name="dogWalking"> {dogWalking ? 'Dog walking ✅' : 'Dog walking'}</button>
-                    <button onClick={this.handleServices} name="dogGrooming"> {dogGrooming ? 'Dog grooming ✅' : 'Dog grooming'}</button>
+                        <h2 className="sitter-t-1">Choose your service(s):</h2>
+                        <button className="bttn-1" onClick={this.handleServices} name="dogBoarding" >{dogBoarding ? 'Dog boarding ✅' : 'Dog boarding'}</button>
+                        <button className="bttn-2" onClick={this.handleServices} name="houseSitting">  {houseSitting ? 'House sitting ✅' : 'House sitting'}</button>
+                        <button className="bttn-3" onClick={this.handleServices} name="dropInVisits"> {dropInVisits ? 'Drop-in visits ✅' : 'Drop-in visits'}</button>
+                        <button className="bttn-4" onClick={this.handleServices} name="doggyDaycare"> {doggyDaycare ? 'Doggy day care ✅' : 'Doggy day care'}</button>
+                        <button className="bttn-5" onClick={this.handleServices} name="dogWalking"> {dogWalking ? 'Dog walking ✅' : 'Dog walking'}</button>
+                        <button className="bttn-6" onClick={this.handleServices} name="dogGrooming"> {dogGrooming ? 'Dog grooming ✅' : 'Dog grooming'}</button>
                     </div>
-                   <div>
-                   <form  >
-                       <label>Add your area</label>
-                       <input
-                       type="text"
-                       name="address"
-                       onChange={this.handleChange}
-                       value={address}
-                       />
-                        <p>Add your dates</p>
-                       <label>Pick up</label>
-                       <input type="date" name="pick-up" onChange={this.handleChange} value={pickUp}/>
-                       <label>Drop off</label>
-                       <input type="date" name="drop-off" onChange={this.handleChange} value={dropOff} />
-                   </form>
-                   </div>
-                   <button onClick={this.nextPage}>Next</button>
+                    <div>
+                        <p className="sitter-t-2">Dog specifications</p>
+                        <p className="size">Size</p>
+                        <RadioGroup className="size-o" name="size" selectedValue={size} onChange={this.handleSize}>
+                            <Radio value="small" />Small
+                            <Radio value="medium" />Medium
+                            <Radio value="large" />Large
+                        </RadioGroup>
+                
+                        <p className="age">Age</p>
+                        <RadioGroup className="age-o" name="dogAge" selectedValue={dogAge} onChange={this.handleAge}>
+                            <Radio value="puppy" />Puppy
+                            <Radio value="adult" />Adult
+                            <Radio value="senior" />Senior
+                        </RadioGroup>
+                        <p className="potty">Potty trained (Boarding)</p>
+                        <RadioGroup className="potty-o" name="pottyTrained" selectedValue={pottyTrained} onChange={this.handlePotty}>
+                            <Radio value="yes" />Yes
+                            <Radio value="no" />No
+                        </RadioGroup>
+                        <button className="btn-s" onClick={this.nextPage}>Next</button>
+                    </div>
                 </div>
-                  ) :
-                  (
-                      <div>
-                          <h1>Find the perfect match!</h1>
-                          <form onSubmit={this.handleFormSubmit}  encType="multipart/form-data">
-                          <p>What's your dog's size?</p>
-                          <button onClick={this.handleSize} name="small" >{small ? 'Small ✅' : 'Small'}</button>
-                          <button onClick={this.handleSize} name="medium">  {medium ? 'Medium ✅' : 'Medium'}</button>
-                          <button onClick={this.handleSize} name="large"> {large ? 'Large ✅' : 'Large'}</button>
-                          <p>How old is your dog?</p>
-                          <button onClick={this.handleAge} name="puppy" >{puppy ? 'Puppy ✅' : 'Puppy'}</button>
-                          <button onClick={this.handleAge} name="adult">  {adult ? 'Adult ✅' : 'Adult'}</button>
-                          <button onClick={this.handleAge} name="senior"> {senior ? 'Senior ✅' : 'Senior'}</button>
-                          <p>Does your dog get along with other dogs?</p>
-                          <button onClick={this.handleOther} name="yes">  {yes ? 'Yes ✅' : 'Yes'}</button>
-                          <button onClick={this.handleOther} name="no"> {no ? 'No ✅' : 'No'}</button>
-                          <label> Special comments:</label>
-                          <input type="text" name="specialComments" onChange={this.handleChange} value={specialComments}/>
-                          <button>Submit</button>
-                          </form>
-                          <button onClick={this.nextPage}>Previous</button>
-                      </div>
-                  )
+
+                ) :
+                (
+                <div>
+                 <img className="img-2" src="/images/chewy-EV9_vVMZTcg-unsplash.jpg"/>
+                    <h1 className="sitter-h">Earn money on your </h1>
+                    <h1 className="sitter-h-2">free time!</h1>
+                    <h2 className="sitter-h-3">Create your account</h2>
+                    <h2 className="sitter-h-4">TODAY</h2>
+                    <form onSubmit={this.handleFormSubmit}  encType="multipart/form-data">
+                    
+                        <label className="sitter-t-3">Name:</label>
+                        <input className="sitter-i-1"
+                            type="text"
+                            name="name"
+                            onChange={this.handleChange}
+                            value={name}
+                            />
+                            <label className="sitter-t-e" >Email:</label>
+                          <input className="sitter-t-e-i"
+                            type="email"
+                            name="email"
+                            onChange={this.handleChange}
+                            value={email}
+                            />      
+                        <label className="sitter-t-4">About you:</label>
+                        <input className="sitter-i-2"
+                            type="text"
+                            name="about"
+                            cols="30"
+                            onChange={this.handleChange}
+                            value={about}
+                            />
+                        <label className="sitter-t-5">Your space:</label>
+                        <input className="sitter-i-3"
+                            type="text"
+                            name="space"
+                            onChange={this.handleChange}
+                            value={space}
+                            />
+                        <label className="sitter-t-6"> Hourly rate:</label>
+                        <input className="sitter-i-4" type="number" name="rate" onChange={this.handleChange} value={rate}/>
+                        <label className="sitter-t-7"> Your area:</label>
+                        <input className="sitter-i-5" type="text" name="area" onChange={this.handleChange} value={area}/>
+                        <label className="sitter-t-8">Image</label>
+                        <input className="sitter-i-6" type="file" onChange={this.handleFileChange} />
+                        <button className="btn-p">Create</button>
+                    </form>
+                    <button className="btn-c" onClick={this.nextPage}>Previous</button>
+                </div>
+                        
+                    
             )
-        }
+        )
+    }
     
 }
 
-export default OwnerProfile
+export default SitterProfile

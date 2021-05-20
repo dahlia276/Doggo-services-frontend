@@ -7,6 +7,14 @@ import React from 'react';
 import Services from './components/Services';
 import {loggedin} from "./api"
 import OwnerProfile from './components/Owner-profile';
+import SitterProfile from './components/Sitter-profile';
+import BecomeSitter from './components/BecomeSitter';
+import Home from './components/Home';
+import Navbar from "./components/Navbar"
+import AvailableSitters from './components/AvailableSitters';
+import {ToastContainers} from "react-toastify"
+import "bulma/css/bulma.css";
+
 
 
 class App extends React.Component {
@@ -34,7 +42,7 @@ class App extends React.Component {
     const { loggedInUser } = this.state;
     return (
   <div className="App">
-
+  <Navbar/>
   <Switch>
   <Route
         exact
@@ -46,6 +54,11 @@ class App extends React.Component {
       <Route exact path={"/signup"} component={Signup} />
       <Route exact path={"/services"} component={Services} />
       <Route exact path={"/sitter-request"} component={OwnerProfile}/>
+      <Route exact path={"/sitter-profile"} component={SitterProfile}/>
+      <Route exact path={"/become/sitter"} component={BecomeSitter}/>
+      <Route exact path={"/"} component={Home} />
+      <Route exact path={"/available-sitters"} component={AvailableSitters} />
+
 
     </Switch>
   </div>
