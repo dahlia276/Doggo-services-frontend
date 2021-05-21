@@ -17,7 +17,7 @@ class Login extends React.Component {
           event.preventDefault()
           const {username, password} = this.state
           const response = await login(username, password)
-    //      this.props.setCurrentUser(response.data)
+          this.props.setCurrentUser(response.data)
           this.props.history.push("/")
       }
 

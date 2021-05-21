@@ -39,3 +39,7 @@ export const requestBookingEmail = (email, requestText) => {
     return axios.post(`${baseUrl}/request-booking`, {email, requestText})
 }
 
+export const deleteSitter = (id) => {
+    return axios.delete(`${baseUrl}/profile/${id}`)
+}
+

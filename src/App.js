@@ -42,7 +42,7 @@ class App extends React.Component {
     const { loggedInUser } = this.state;
     return (
   <div className="App">
-  <Navbar/>
+<Navbar loggedInUser={loggedInUser}/>
   <Switch>
   <Route
         exact

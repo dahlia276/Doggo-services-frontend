@@ -10,6 +10,10 @@ function Navbar({loggedInUser, setCurrentUser}) {
     }
 
     return loggedInUser ? (
+      <div>
+      <p>
+      Welcome {loggedInUser.username}
+  </p>
       <nav class="navbar is-transparent">
       <div class="navbar-brand">
         <a class="navbar-item" href="/home">
@@ -41,6 +45,7 @@ function Navbar({loggedInUser, setCurrentUser}) {
           </div>
         </div>
     </nav>
+    </div>
     ) : (
       <nav class="navbar is-transparent">
       <div class="navbar-brand">

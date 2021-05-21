@@ -14,11 +14,11 @@ function Home () {
             <div className="circleBase circle1"></div>
                 <p className="one">1</p>
                 <p className="w1">Search</p>
-                <hr/>
+                <hr className="hr-1"/>
             <div className="circleBase circle2"></div>
                 <p className="two">2</p>
                 <p className="w2">Connect</p>
-                <hr/>
+                <hr className="hr-2"/>
                 <div className="circleBase circle3"></div>
                 <p className="three">3</p>
                 <p className="w3">Relax</p>

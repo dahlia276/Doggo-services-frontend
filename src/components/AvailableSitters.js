@@ -1,5 +1,5 @@
 import React from "react"
-import {getAllSitters, requestBookingEmail} from "../api"
+import {getAllSitters, requestBookingEmail, deleteSitter} from "../api"
 import SitterProfile from "./Sitter-profile"
 
 class AvailableSitters extends React.Component {
@@ -26,8 +26,13 @@ class AvailableSitters extends React.Component {
     this.props.history.push("/");
   }
 
+  handleDeleteSitter = async (id) => {
+    await deleteSitter(id)
+    this.props.history.push("/") //redirecting the user to home page
+}
+
   render(){
-      const {name, area, rate, about, imageUrl, services, space, pottyTrained, requestText } = this.state
+      const {name, area, rate, about, imageUrl, services, space, pottyTrained, requestText,_id } = this.state
       return(
           <div>
             <img className="img-l" src="/images/michael-oxendine-t7wwffh6x8E-unsplash.jpg"/>
@@ -45,6 +50,7 @@ class AvailableSitters extends React.Component {
                         <p className="available-i-6">About the space: {sitter.space}</p>
                         <p className="available-i-7">Potty trained: {sitter.pottyTrained ? "Yes" : "No"}</p>
                         <img className="available-i-8" src={sitter.imageUrl}/>
+                        
                         {sitter.email &&  
                         <>
                         <form onSubmit={(event) => this.sendRequest(event, sitter.email)}> 

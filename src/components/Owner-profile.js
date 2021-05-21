@@ -24,7 +24,7 @@ class OwnerProfile extends React.Component {
         address: "",
         pickUp: "",
         dropOff: "",
-        dogSize: [],
+        dogSize: '',
         dogAge: [],
         otherDogs: "",
         imageUrl: "",
@@ -52,9 +52,10 @@ class OwnerProfile extends React.Component {
         })
       }
 
-      handleSize = (size) => {
+      handleSize = (event) => {
+      //  let {  selectedValue } = event.target;
         this.setState({
-            size: size
+          dogSize: event
         })
       }
 
